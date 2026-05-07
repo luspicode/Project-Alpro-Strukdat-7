@@ -1,0 +1,19 @@
+PerpustakaanDigital/
+│
+├── main.py
+├── buku.py
+├── user.py
+├── linkedlist.py
+├── doublelinkedlist.py
+├── circularlinkedlist.py
+├── stack.py
+├── queue.py
+├── tree.py
+├── graph.py
+├── hashtable.py
+├── utils.py
+│
+├── data/
+│   ├── buku.csv
+│   ├── user.csv
+│   └── histori.csv
