@@ -38,3 +38,4 @@ if __name__ == "__main__":
     print(queue.size())  # Output: 2
     queue.clear()
     print(queue.is_empty())  # Output: True
+    print(queue.size())  # Output: 0
