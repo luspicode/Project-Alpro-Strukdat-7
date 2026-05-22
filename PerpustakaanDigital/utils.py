@@ -1,5 +1,23 @@
+# ================================
+# SISTEM PERPUSTAKAAN DIGITAL
+# utils.py
+# DIPAKAI UNTUK MENYELESAIKAN SEMUA PROSES SEHINGGA "MAIN" TINGGAL PANGGIL
+# ================================
+
+from stack import Stack
+from queue import Queue
+from filehandler import load_buku, save_buku
+from searching import linear_search
+from sorting import bubble_sort_judul
 
 
+# ================================
+# DATA AWAL
+# ================================
+
+daftar_buku = load_buku()
+undo_stack = Stack()
+antrian = Queue()
 
 # ================================
 # FUNCTION TAMPIL BUKU
