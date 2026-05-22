@@ -44,14 +44,15 @@ Edit buku
 Hapus buku
 Lihat semua buku
 Sorting buku
-Searching buku
+Cari buku
+Lihat histori
 
 fitur buat user:
 
 Pinjam buku
 Kembalikan buku
-Lihat histori
 Cari buku
+Lihat semua buku
 
 
 program ini bisa digunakan untuk:
