@@ -1,3 +1,4 @@
+
 # =====================================
 # stack.py
 # Stack untuk Undo Peminjaman
@@ -89,3 +90,4 @@ Status     : {item['status']}
         self.data.clear()
 
         print("\nStack berhasil dikosongkan.")
+

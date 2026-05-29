@@ -2,26 +2,14 @@
 # SISTEM PERPUSTAKAAN DIGITAL
 # main.py
 # ================================
+
 from utils import tambah_buku, tampil_buku, cari_buku, sorting_buku, pinjam_buku, kembalikan_buku, undo_peminjaman
-from filehandler import load_buku, save_buku
-from queue import Queue
-from stack import Stack
-
-# ================================
-# DATA AWAL
-# ================================
-
-daftar_buku = load_buku()
-
-antrian = Queue()
-undo_stack = Stack()
 
 # ================================
 # MENU
 # ================================
 
 while True:
-
     print("""
 =================================
  SISTEM PERPUSTAKAAN DIGITAL
@@ -66,3 +54,6 @@ while True:
 
     else:
         print("\nPilihan tidak valid.")
+        
+        
+        
