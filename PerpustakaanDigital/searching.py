@@ -24,16 +24,13 @@ def binary_search(daftar_buku, keyword):
             daftar_buku[mid]["judul"]
             .lower()
         )
-
-        # Buku ditemukan
+        
         if keyword == judul_tengah:
             return daftar_buku[mid]
 
-        # Cari ke kanan
         elif keyword > judul_tengah:
             low = mid + 1
 
-        # Cari ke kiri
         else:
             high = mid - 1
 
