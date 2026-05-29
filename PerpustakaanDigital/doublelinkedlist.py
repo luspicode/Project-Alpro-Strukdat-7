@@ -66,4 +66,4 @@ Judul    : {data['judul']}
         while current:
             data = current.data
             print(f"{data['username']} - {data['aksi']} - {data['judul']}")
-            current = current.prev
+            current = current.prev 
