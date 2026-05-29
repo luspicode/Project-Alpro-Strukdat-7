@@ -4,11 +4,11 @@
 # DIPAKAI UNTUK MENYELESAIKAN SEMUA PROSES SEHINGGA "MAIN" TINGGAL PANGGIL
 # ================================
 
-from stack import Stack
+from implementasi.stack import Stack 
 from queue import Queue
 from filehandler import load_buku, save_buku
-from searching import linear_search
-from sorting import bubble_sort_judul
+from implementasi.searching import linear_search
+from implementasi.sorting import bubble_sort_judul
 
 
 # ================================
@@ -64,6 +64,12 @@ def tambah_buku():
     save_buku(daftar_buku)
 
     print("\nBuku berhasil ditambahkan!")
+
+# ================================
+# FUNCTION HAPUS BUKU
+# ================================
+def hapus_buku():
+    pass
 
 
 # ================================
