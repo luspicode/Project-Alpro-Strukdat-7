@@ -40,7 +40,6 @@ fitur yang bakal kami dibuat
 fitur buat atmint:
 
 Tambah buku
-Edit buku
 Hapus buku
 Lihat semua buku
 Sorting buku
