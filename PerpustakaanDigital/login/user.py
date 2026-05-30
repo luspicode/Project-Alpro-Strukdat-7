@@ -1,20 +1,23 @@
-from utils import tambah_buku, hapus_buku, tampil_buku, cari_buku, sorting_buku, pinjam_buku, kembalikan_buku, undo_peminjaman
+from colorama import init, Fore, Style
+from utils import tampil_buku, cari_buku, pinjam_buku, kembalikan_buku
 
-def Admin():
+init(autoreset=True)
+
+def User():
     while True:
-        print("""
-=================================
- SISTEM PERPUSTAKAAN DIGITAL
-=================================
+        print(Fore.CYAN + "=" * 50)
+        print(Fore.YELLOW + "   👤 USER MENU")
+        print(Fore.CYAN + "=" * 50)
 
-1. Tampilkan Buku
-2. Cari Buku
-3. Pinjam Buku
-4. Kembalikan Buku
-5. Exit
-=================================""")
+        print(Fore.BLUE + "[1]" + Fore.WHITE + " Tampilkan Buku")
+        print(Fore.BLUE + "[2]" + Fore.WHITE + " Cari Buku")
+        print(Fore.BLUE + "[3]" + Fore.WHITE + " Pinjam Buku")
+        print(Fore.BLUE + "[4]" + Fore.WHITE + " Kembalikan Buku")
+        print(Fore.RED  + "[5]" + Fore.WHITE + " Keluar")
 
-        pilihan = input("Masukkan pilihan : ")
+        print(Fore.CYAN + "=" * 50)
+
+        pilihan = input(Fore.YELLOW + "Masukkan pilihan : ")
 
         if pilihan == "1":
             tampil_buku()
@@ -29,8 +32,24 @@ def Admin():
             kembalikan_buku()
 
         elif pilihan == "5":
-            print("\nProgram selesai.")
+            print(Fore.GREEN + "\n✅ Terima kasih telah menggunakan sistem.")
             break
 
         else:
-            print("\nPilihan tidak valid.")
+            print(Fore.RED + "\n❌ Pilihan tidak valid.")
+
+        input(Fore.CYAN + "\nTekan ENTER untuk kembali ke menu...")
+
+
+
+def login_user():
+    print("\n=== USER ===")
+
+    nama = input("Masukkan nama Anda: ")
+
+    if nama.strip() == "":
+        print("Nama tidak boleh kosong!")
+        return None
+
+    print(f"\nSelamat datang, {nama}!")
+    return nama
