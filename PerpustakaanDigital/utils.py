@@ -9,7 +9,10 @@ from queue import Queue
 from filehandler import load_buku, save_buku
 from implementasi.searching import linear_search
 from implementasi.sorting import bubble_sort_judul
+import os
 
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 # ================================
 # DATA AWAL
@@ -24,6 +27,7 @@ antrian = Queue()
 # ================================
 
 def tampil_buku():
+    clear()
     if len(daftar_buku) == 0:
         print("\nBelum ada buku.")
         return
@@ -45,7 +49,7 @@ Status   : {buku['status']}
 # ================================
 
 def tambah_buku():
-
+    clear()
     id_buku = input("Masukkan ID Buku      : ")
     judul = input("Masukkan Judul Buku   : ")
     penulis = input("Masukkan Penulis Buku : ")
@@ -69,6 +73,7 @@ def tambah_buku():
 # FUNCTION HAPUS BUKU
 # ================================
 def hapus_buku():
+    clear()
     pass
 
 
@@ -77,7 +82,7 @@ def hapus_buku():
 # ================================
 
 def cari_buku():
-
+    clear()
     keyword = input("\nMasukkan judul buku : ")
 
     hasil = linear_search(daftar_buku, keyword)
@@ -98,7 +103,7 @@ def cari_buku():
 # ================================
 
 def sorting_buku():
-
+    clear()
     bubble_sort_judul(daftar_buku)
 
     print("\nBuku berhasil diurutkan berdasarkan judul!")
@@ -109,7 +114,7 @@ def sorting_buku():
 # ================================
 
 def pinjam_buku():
-
+    clear()
     id_buku = input("\nMasukkan ID buku yang ingin dipinjam : ")
 
     for buku in daftar_buku:
@@ -141,7 +146,7 @@ def pinjam_buku():
 # ================================
 
 def kembalikan_buku():
-
+    clear()
     id_buku = input("\nMasukkan ID buku yang dikembalikan : ")
 
     for buku in daftar_buku:
@@ -168,7 +173,7 @@ def kembalikan_buku():
 # ================================
 
 def undo_peminjaman():
-
+    clear()
     if undo_stack.is_empty():
         print("\nTidak ada data undo.")
         return
