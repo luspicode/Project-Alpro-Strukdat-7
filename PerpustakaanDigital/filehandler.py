@@ -39,7 +39,7 @@ def save_buku(data):
             writer.writerow(buku)
 
 
-def update_buku(data, id_buku, data_baru):
+def edit_buku(data, id_buku, data_baru):
 
     for i in range(len(data)):
         if data[i]["id"] == id_buku:
