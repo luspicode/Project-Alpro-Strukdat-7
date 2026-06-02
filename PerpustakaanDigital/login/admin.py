@@ -19,10 +19,8 @@ def Admin():
         print(Fore.BLUE   + "[3]" + Fore.WHITE + " Tampilkan Buku")
         print(Fore.BLUE   + "[4]" + Fore.WHITE + " Cari Buku")
         print(Fore.BLUE   + "[5]" + Fore.WHITE + " Sorting Buku")
-        print(Fore.BLUE   + "[6]" + Fore.WHITE + " Pinjam Buku")
-        print(Fore.BLUE   + "[7]" + Fore.WHITE + " Kembalikan Buku")
-        print(Fore.BLUE   + "[8]" + Fore.WHITE + " Undo Peminjaman")
-        print(Fore.RED    + "[9]" + Fore.WHITE + " Keluar")
+        print(Fore.BLUE   + "[6]" + Fore.WHITE + " Undo Peminjaman")
+        print(Fore.RED    + "[7]" + Fore.WHITE + " Keluar")
 
         print(Fore.CYAN + "=" * 50)
 
@@ -44,15 +42,9 @@ def Admin():
             sorting_buku()
 
         elif pilihan == "6":
-            pinjam_buku()
-
-        elif pilihan == "7":
-            kembalikan_buku()
-
-        elif pilihan == "8":
             undo_peminjaman()
 
-        elif pilihan == "9":
+        elif pilihan == "7":
             print(Fore.GREEN + "\n✅ Program selesai.")
             break
 
