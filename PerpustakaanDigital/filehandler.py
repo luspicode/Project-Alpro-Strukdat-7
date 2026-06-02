@@ -19,7 +19,8 @@ def load_buku():
                 "judul": row["judul"],
                 "penulis": row["penulis"],
                 "tahun": row["tahun"],
-                "status": row["status"]
+                "status": row["status"],
+                "peminjam" : row.get("peminjam", "")
             })
 
     return data
@@ -30,7 +31,7 @@ def save_buku(data):
     os.makedirs("data", exist_ok=True)
 
     with open(FILE_NAME, mode='w', newline='', encoding='utf-8') as file:
-        fieldnames = ["id", "judul", "penulis", "tahun", "status"]
+        fieldnames = ["id", "judul", "penulis", "tahun", "status", "peminjam"]
         writer = csv.DictWriter(file, fieldnames=fieldnames)
 
         writer.writeheader()
@@ -48,3 +49,45 @@ def edit_buku(data, id_buku, data_baru):
             return True
 
     return False
+
+
+USER_FILE = "data/user.csv"
+
+def simpan_user(nama):
+    os.makedirs("data", exist_ok=True)
+
+    # buat file kalau belum ada
+    if not os.path.exists(USER_FILE):
+        with open(USER_FILE, mode="w", newline="", encoding="utf-8") as file:
+            writer = csv.writer(file)
+            writer.writerow(["nama"])
+
+    # cek apakah user sudah pernah tercatat
+    with open(USER_FILE, mode="r", newline="", encoding="utf-8") as file:
+        reader = csv.DictReader(file)
+
+        for row in reader:
+            if row.get("nama", "").lower() == nama.lower():
+                return
+
+    # simpan user baru
+    with open(USER_FILE, mode="a", newline="", encoding="utf-8") as file:
+        writer = csv.writer(file)
+        writer.writerow([nama])
+
+
+HISTORY_FILE = "data/histori.csv"
+
+def simpan_histori(nama, judul, aksi):
+    os.makedirs("data", exist_ok=True)
+
+    # Buat file jika belum ada
+    if not os.path.exists(HISTORY_FILE):
+        with open(HISTORY_FILE, mode="w", newline="", encoding="utf-8") as file:
+            writer = csv.writer(file)
+            writer.writerow(["nama", "judul", "aksi"])
+
+    # Tambah histori
+    with open(HISTORY_FILE, mode="a", newline="", encoding="utf-8") as file:
+        writer = csv.writer(file)
+        writer.writerow([nama, judul, aksi])
