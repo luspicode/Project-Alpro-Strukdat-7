@@ -21,10 +21,12 @@ while True:
     if pilihan == "1":
         if login_admin(ADMIN_USERNAME, ADMIN_PASSWORD):
             Admin()
+        else:
+            print("Username atau Password Salah")
 
     elif pilihan == "2":
         nama = login_user()
-        User()
+        User(nama)
 
     elif pilihan == "0":
         break
