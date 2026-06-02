@@ -168,11 +168,7 @@ def kembalikan_buku():
 
             save_buku(daftar_buku)
 
-            simpan_histori(
-                nama,
-                buku["judul"],
-                "KEMBALI"
-            )
+            simpan_histori(nama, buku["judul"], "KEMBALI")
 
             print(f"\nBuku berhasil dikembalikan oleh {nama}.")
 
