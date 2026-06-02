@@ -1,9 +1,11 @@
 from colorama import init, Fore, Style
 from utils import tampil_buku, cari_buku, pinjam_buku, kembalikan_buku
+from filehandler import simpan_user
+
 
 init(autoreset=True)
 
-def User():
+def User(nama):
     while True:
         print(Fore.CYAN + "=" * 50)
         print(Fore.YELLOW + "   👤 USER MENU")
@@ -26,10 +28,10 @@ def User():
             cari_buku()
 
         elif pilihan == "3":
-            pinjam_buku()
+            pinjam_buku(nama)
 
         elif pilihan == "4":
-            kembalikan_buku()
+            kembalikan_buku(nama)
 
         elif pilihan == "5":
             print(Fore.GREEN + "\n✅ Terima kasih telah menggunakan sistem.")
@@ -42,14 +44,15 @@ def User():
 
 
 
-def login_user():
-    print("\n=== USER ===")
 
+def login_user():
     nama = input("Masukkan nama Anda: ")
 
     if nama.strip() == "":
         print("Nama tidak boleh kosong!")
         return None
 
-    print(f"\nSelamat datang, {nama}!")
+    simpan_user(nama)
+
+    print(f"Selamat datang, {nama}!")
     return nama
