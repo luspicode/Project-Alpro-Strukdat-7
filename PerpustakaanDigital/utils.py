@@ -5,8 +5,8 @@
 # ================================
 
 from implementasi.stack import Stack 
-from queue import Queue
-from filehandler import load_buku, save_buku
+from implementasi.queue import Queue
+from filehandler import load_buku, save_buku, simpan_histori
 from implementasi.searching import linear_search
 from implementasi.sorting import bubble_sort_judul
 import os
@@ -113,7 +113,7 @@ def sorting_buku():
 # FUNCTION PINJAM BUKU
 # ================================
 
-def pinjam_buku():
+def pinjam_buku(nama):
     clear()
     id_buku = input("\nMasukkan ID buku yang ingin dipinjam : ")
 
@@ -125,22 +125,26 @@ def pinjam_buku():
                 print("\nBuku sedang dipinjam.")
                 return
 
-            nama = input("Masukkan nama peminjam : ")
-
             antrian.enqueue(nama)
 
             buku["status"] = "Dipinjam"
+            buku["peminjam"] = nama
+
+            simpan_histori(nama, buku["judul"], "PINJAM")
 
             undo_stack.push(buku)
 
             save_buku(daftar_buku)
+
+            # simpan histori
+            simpan_histori(nama, buku["judul"], "PINJAM")
 
             print(f"\n{nama} berhasil meminjam buku.")
 
             return
 
     print("\nBuku tidak ditemukan.")
-
+    
 # ================================
 # FUNCTION PENGEMBALIAN
 # ================================
@@ -157,11 +161,20 @@ def kembalikan_buku():
                 print("\nBuku belum dipinjam.")
                 return
 
+            nama = buku["peminjam"]
+
             buku["status"] = "Tersedia"
+            buku["peminjam"] = ""
 
             save_buku(daftar_buku)
 
-            print("\nBuku berhasil dikembalikan.")
+            simpan_histori(
+                nama,
+                buku["judul"],
+                "KEMBALI"
+            )
+
+            print(f"\nBuku berhasil dikembalikan oleh {nama}.")
 
             return
 
