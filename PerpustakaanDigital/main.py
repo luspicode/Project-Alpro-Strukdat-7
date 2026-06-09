@@ -5,28 +5,27 @@
 import os
 from implementasi.tampilan import menu_awal
 from login.admin import Admin, login_admin
-from login.user import User, login_user
+from login.user import User
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 # login.py
 
-ADMIN_USERNAME = "admin"
-ADMIN_PASSWORD = "admin"
 
 while True:
     clear()
     pilihan = menu_awal()
     clear()
     if pilihan == "1":
-        if login_admin(ADMIN_USERNAME, ADMIN_PASSWORD):
+        if login_admin():
             Admin()
         else:
             print("Username atau Password Salah")
 
     elif pilihan == "2":
-        nama = login_user()
-        User(nama)
+        user = User()
+        nama = user.login_user()
+        user.tampilkan_menu()
 
     elif pilihan == "0":
         break
