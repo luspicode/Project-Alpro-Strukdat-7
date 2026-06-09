@@ -1,4 +1,6 @@
-from utils import tambah_buku, hapus_buku, tampil_buku, cari_buku, sorting_buku, pinjam_buku, kembalikan_buku, undo_peminjaman
+from utils import tambah_buku, hapus_buku, tampil_buku, cari_buku, sorting_buku, undo_peminjaman, registrasi_admin, tampilkan_admin
+from implementasi.hashtable import HashTable
+from filehandler import load_admin
 from colorama import init, Fore, Style
 import os
 
@@ -6,7 +8,10 @@ init(autoreset=True)
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
-    
+
+admin = HashTable()
+load_admin(admin)
+
 def Admin():
     clear()
     while True:
@@ -20,7 +25,9 @@ def Admin():
         print(Fore.BLUE   + "[4]" + Fore.WHITE + " Cari Buku")
         print(Fore.BLUE   + "[5]" + Fore.WHITE + " Sorting Buku")
         print(Fore.BLUE   + "[6]" + Fore.WHITE + " Undo Peminjaman")
-        print(Fore.RED    + "[7]" + Fore.WHITE + " Keluar")
+        print(Fore.BLUE   + "[7]" + Fore.WHITE + " Tampilkan Daftar Admin")
+        print(Fore.BLUE   + "[8]" + Fore.WHITE + " Registrasi Admin Cabang")
+        print(Fore.RED    + "[9]" + Fore.WHITE + " Keluar")
 
         print(Fore.CYAN + "=" * 50)
 
@@ -43,11 +50,17 @@ def Admin():
 
         elif pilihan == "6":
             undo_peminjaman()
-
+            
         elif pilihan == "7":
+            tampilkan_admin(admin)
+
+        elif pilihan == "8":
+            registrasi_admin(admin)
+            
+        elif pilihan == "9":
             print(Fore.GREEN + "\n✅ Program selesai.")
             break
-
+        
         else:
             print(Fore.RED + "\n❌ Pilihan tidak valid.")
 
@@ -55,15 +68,21 @@ def Admin():
 
 
 
-def login_admin(ADMIN_USERNAME, ADMIN_PASSWORD):
-    print("\n=== LOGIN ADMIN ===")
+def login_admin():
+    clear()
+    
+    print("\n===== LOGIN ADMIN =====")
 
     username = input("Username : ")
     password = input("Password : ")
 
-    if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
-        print("\nLogin berhasil!")
-        return True
+    data = admin.login(username, password)
 
-    print("\nUsername atau password salah!")
+    if data and data["role"] == "admin":
+        print("\nLogin berhasil")
+        return True
+    
     return False
+
+
+
