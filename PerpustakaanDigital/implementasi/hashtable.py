@@ -26,25 +26,20 @@ class HashTable:
     # TAMBAH USER
     # =========================
     def insert(self, username, password, role):
-
         index = self.hash_function(username)
-
-        # cek apakah username sudah ada
+        
         for data in self.table[index]:
-
             if data["username"] == username:
                 print("\nUsername sudah digunakan.")
-                return
-
+                return False
         user = {
             "username": username,
             "password": password,
             "role": role
         }
-
         self.table[index].append(user)
-
-        print("\nUser berhasil ditambahkan.")
+        print("\nAdmin Cabang berhasil ditambahkan.")
+        return True
 
     # =========================
     # LOGIN USER
@@ -60,7 +55,7 @@ class HashTable:
                 data["password"] == password
             ):
                 return data
-
+            
         return None
 
     # =========================
@@ -82,11 +77,11 @@ class HashTable:
         print("\nUser tidak ditemukan.")
 
     # =========================
-    # TAMPILKAN USER
+    # TAMPILKAN ADMIN
     # =========================
-    def tampil_user(self):
+    def tampil_admin(self):
 
-        print("\n========== DATA USER ==========")
+        print("\n========== DATA ADMIN YANG SUDAH TERDAFTAR ==========")
 
         kosong = True
 
@@ -96,11 +91,7 @@ class HashTable:
 
                 kosong = False
 
-                print(f"""
-Username : {data['username']}
-Role     : {data['role']}
-----------------------------------
-""")
+                print(f"""\nUsername : {data['username']}\n----------------------------------""")
 
         if kosong:
             print("Belum ada user.")
