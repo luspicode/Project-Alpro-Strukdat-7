@@ -117,6 +117,4 @@ Status   : {buku['status']}
                 break
 
         return total
-    
-    
-#Circular Double LInkedlist
+
