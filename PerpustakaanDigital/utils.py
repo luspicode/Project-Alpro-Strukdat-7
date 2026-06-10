@@ -9,7 +9,7 @@ from implementasi.linkedlist import SingleLinkedList, CircularLinkedList, Double
 from implementasi.tree import BinarySearchTree
 from implementasi.graph import Graph
 from filehandler import load_buku, save_buku, simpan_histori, save_admin, load_histori
-from implementasi.searching import linear_search, binary_search
+from implementasi.searching import linear_search
 from implementasi.sorting import bubble_sort_judul
 
 def clear():
