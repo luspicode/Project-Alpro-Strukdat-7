@@ -77,8 +77,13 @@ def login_admin():
             return True
 
         print("\n❌ Username atau password salah.")
+        input(Fore.CYAN + "\nTekan ENTER untuk kembali ke menu...")
         return False
 
     except Exception as e:
         print(f"\n❌ Terjadi kesalahan saat login: {e}")
+        input(Fore.CYAN + "\nTekan ENTER untuk kembali ke menu...")
         return False
+    
+        
+
