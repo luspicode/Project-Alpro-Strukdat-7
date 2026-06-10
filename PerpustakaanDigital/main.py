@@ -29,3 +29,5 @@ while True:
 
     elif pilihan == "0":
         break
+
+print("Program Selesai!")
