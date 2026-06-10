@@ -57,6 +57,7 @@ def Admin():
         elif pilihan == "14": registrasi_admin(admin)
         elif pilihan == "0":
             print(Fore.GREEN + "\n✅ Keluar dari menu admin.")
+            input(Fore.CYAN + "\nTekan ENTER untuk kembali ke menu...")
             break
         else:
             print(Fore.RED + "\n❌ Pilihan tidak valid.")
