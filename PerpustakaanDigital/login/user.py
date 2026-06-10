@@ -39,6 +39,7 @@ class User:
             elif pilihan == "7": tampil_rekomendasi()
             elif pilihan == "0":
                 print(Fore.GREEN + "\n✅ Terima kasih, sampai jumpa!")
+                input(Fore.CYAN + "\nTekan ENTER untuk kembali ke menu...")
                 break
             else:
                 print(Fore.RED + "\n❌ Pilihan tidak valid.")
