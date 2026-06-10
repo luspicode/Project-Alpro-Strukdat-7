@@ -1,159 +1,46 @@
 # =====================================
-# hashtable.py
-# Hash Table untuk Login User/Admin
+# graph.py
+# Graph - Rekomendasi Buku Berdasarkan Kategori
+# Adjacency List (Dictionary)
 # =====================================
 
-class HashTable:
+class Graph:
+    def __init__(self):
+        # dictionary: key=kategori, value=set of kategori terkait
+        # SET dipakai di sini untuk menghindari duplikat relasi
+        self.adjacency_list = {}
 
-    def __init__(self, size=10):
+    def tambah_kategori(self, kategori):
+        if kategori not in self.adjacency_list:
+            self.adjacency_list[kategori] = set()   # <-- SET
+        else:
+            print(f"\nKategori '{kategori}' sudah ada.")
 
-        self.size = size
-        self.table = [[] for _ in range(size)]
+    def tambah_relasi(self, kategori1, kategori2):
+        """Tambah relasi dua arah antar kategori"""
+        if kategori1 not in self.adjacency_list:
+            self.tambah_kategori(kategori1)
+        if kategori2 not in self.adjacency_list:
+            self.tambah_kategori(kategori2)
+        # set.add() otomatis cegah duplikat
+        self.adjacency_list[kategori1].add(kategori2)
+        self.adjacency_list[kategori2].add(kategori1)
 
-    # =========================
-    # HASH FUNCTION
-    # =========================
-    def hash_function(self, key):
+    def rekomendasi(self, kategori):
+        """Return set kategori yang berkaitan"""
+        if kategori not in self.adjacency_list:
+            return set()
+        return self.adjacency_list[kategori]   # <-- return SET
 
-        total = 0
+    def semua_kategori(self):
+        """Return set semua kategori yang ada (unik)"""
+        return set(self.adjacency_list.keys())  # <-- SET
 
-        for char in key:
-            total += ord(char)
-
-        return total % self.size
-
-    # =========================
-    # TAMBAH USER
-    # =========================
-    def insert(self, username, password, role):
-
-        index = self.hash_function(username)
-
-        # cek apakah username sudah ada
-        for data in self.table[index]:
-
-            if data["username"] == username:
-                print("\nUsername sudah digunakan.")
-                return
-
-        user = {
-            "username": username,
-            "password": password,
-            "role": role
-        }
-
-        self.table[index].append(user)
-
-        print("\nUser berhasil ditambahkan.")
-
-    # =========================
-    # LOGIN USER
-    # =========================
-    def login(self, username, password):
-
-        index = self.hash_function(username)
-
-        for data in self.table[index]:
-
-            if (
-                data["username"] == username and
-                data["password"] == password
-            ):
-                return data
-
-        return None
-
-    # =========================
-    # HAPUS USER
-    # =========================
-    def delete(self, username):
-
-        index = self.hash_function(username)
-
-        for i, data in enumerate(self.table[index]):
-
-            if data["username"] == username:
-
-                del self.table[index][i]
-
-                print("\nUser berhasil dihapus.")
-                return
-
-        print("\nUser tidak ditemukan.")
-
-    # =========================
-    # TAMPILKAN USER
-    # =========================
-    def tampil_user(self):
-
-        print("\n========== DATA USER ==========")
-
-        kosong = True
-
-        for bucket in self.table:
-
-            for data in bucket:
-
-                kosong = False
-
-                print(f"""
-Username : {data['username']}
-Role     : {data['role']}
-----------------------------------
-""")
-
-        if kosong:
-            print("Belum ada user.")
-
-    # =========================
-    # CARI USER
-    # =========================
-    def cari_user(self, username):
-
-        index = self.hash_function(username)
-
-        for data in self.table[index]:
-
-            if data["username"] == username:
-                return data
-
-        return None
-
-    # =========================
-    # UPDATE PASSWORD
-    # =========================
-    def update_password(self, username, password_baru):
-
-        index = self.hash_function(username)
-
-        for data in self.table[index]:
-
-            if data["username"] == username:
-
-                data["password"] = password_baru
-
-                print("\nPassword berhasil diupdate.")
-                return
-
-        print("\nUser tidak ditemukan.")
-
-    # =========================
-    # JUMLAH USER
-    # =========================
-    def size_user(self):
-
-        total = 0
-
-        for bucket in self.table:
-            total += len(bucket)
-
-        return total
-
-    # =========================
-    # CLEAR TABLE
-    # =========================
-    def clear(self):
-
-        self.table = [[] for _ in range(self.size)]
-
-        print("\nHash table berhasil dikosongkan.")
+    def tampil_graph(self):
+        print("\n========== RELASI KATEGORI BUKU ==========")
+        if not self.adjacency_list:
+            print("Belum ada data kategori.")
+            return
+        for kategori, relasi in self.adjacency_list.items():
+            relasi_str = ", ".join(sorted(relasi)) if relasi else "(tidak ada relasi)"
+            print(f"  {kategori:20s} --> {relasi_str}")

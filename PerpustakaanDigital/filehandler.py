@@ -2,139 +2,139 @@ import csv
 import os
 
 FILE_NAME = "data/buku.csv"
+USER_FILE = "data/user.csv"
+HISTORY_FILE = "data/histori.csv"
+FILE_AKUN = "data/admin.csv"
 
+
+# ================================
+# BUKU
+# ================================
 
 def load_buku():
     data = []
-
-    if not os.path.exists(FILE_NAME):
-        return data
-
-    with open(FILE_NAME, mode='r', newline='', encoding='utf-8') as file:
-        reader = csv.DictReader(file)
-
-        for row in reader:
-            data.append({
-                "id": row["id"],
-                "judul": row["judul"],
-                "penulis": row["penulis"],
-                "tahun": row["tahun"],
-                "stok": row["stok"],
-            })
-
+    try:
+        if not os.path.exists(FILE_NAME):
+            return data
+        with open(FILE_NAME, mode='r', newline='', encoding='utf-8') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                data.append({
+                    "id": row["id"],
+                    "judul": row["judul"],
+                    "penulis": row["penulis"],
+                    "tahun": row["tahun"],
+                    "stok": int(row["stok"]),
+                    "kategori": row.get("kategori", "Umum"),
+                })
+    except FileNotFoundError:
+        print("⚠️  File buku tidak ditemukan, memulai dengan data kosong.")
+    except Exception as e:
+        print(f"⚠️  Gagal memuat data buku: {e}")
     return data
 
 
 def save_buku(data):
+    try:
+        os.makedirs("data", exist_ok=True)
+        with open(FILE_NAME, mode='w', newline='', encoding='utf-8') as file:
+            fieldnames = ["id", "judul", "penulis", "tahun", "stok", "kategori"]
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            writer.writeheader()
+            for buku in data:
+                writer.writerow(buku)
+    except Exception as e:
+        print(f"⚠️  Gagal menyimpan data buku: {e}")
 
-    os.makedirs("data", exist_ok=True)
 
-    with open(FILE_NAME, mode='w', newline='', encoding='utf-8') as file:
-        fieldnames = ["id", "judul", "penulis", "tahun", "stok"]
-        writer = csv.DictWriter(file, fieldnames=fieldnames)
-
-        writer.writeheader()
-
-        for buku in data:
-            writer.writerow(buku)
-
-
-USER_FILE = "data/user.csv"
+# ================================
+# USER
+# ================================
 
 def simpan_user(nama):
-    os.makedirs("data", exist_ok=True)
+    try:
+        os.makedirs("data", exist_ok=True)
+        if not os.path.exists(USER_FILE):
+            with open(USER_FILE, mode="w", newline="", encoding="utf-8") as file:
+                csv.writer(file).writerow(["nama"])
 
-    # buat file kalau belum ada
-    if not os.path.exists(USER_FILE):
-        with open(USER_FILE, mode="w", newline="", encoding="utf-8") as file:
-            writer = csv.writer(file)
-            writer.writerow(["nama"])
+        with open(USER_FILE, mode="r", newline="", encoding="utf-8") as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                if row.get("nama", "").lower() == nama.lower():
+                    return  # sudah ada
 
-    # cek apakah user sudah pernah tercatat
-    with open(USER_FILE, mode="r", newline="", encoding="utf-8") as file:
-        reader = csv.DictReader(file)
+        with open(USER_FILE, mode="a", newline="", encoding="utf-8") as file:
+            csv.writer(file).writerow([nama])
 
-        for row in reader:
-            if row.get("nama", "").lower() == nama.lower():
-                return
-
-    # simpan user baru
-    with open(USER_FILE, mode="a", newline="", encoding="utf-8") as file:
-        writer = csv.writer(file)
-        writer.writerow([nama])
+    except Exception as e:
+        print(f"⚠️  Gagal menyimpan user: {e}")
 
 
-HISTORY_FILE = "data/histori.csv"
+# ================================
+# HISTORI
+# ================================
 
 def simpan_histori(nama, judul, aksi):
-    os.makedirs("data", exist_ok=True)
+    try:
+        os.makedirs("data", exist_ok=True)
+        if not os.path.exists(HISTORY_FILE):
+            with open(HISTORY_FILE, mode="w", newline="", encoding="utf-8") as file:
+                csv.writer(file).writerow(["nama", "judul", "aksi"])
 
-    # Buat file jika belum ada
-    if not os.path.exists(HISTORY_FILE):
-        with open(HISTORY_FILE, mode="w", newline="", encoding="utf-8") as file:
-            fieldnames = ["nama", "judul", "status"]
-            writer = csv.writer(file)
-            writer.writerow(["nama", "judul", "aksi"])
+        with open(HISTORY_FILE, mode="a", newline="", encoding="utf-8") as file:
+            csv.writer(file).writerow([nama, judul, aksi])
 
-    # Tambah histori
-    with open(HISTORY_FILE, mode="a", newline="", encoding="utf-8") as file:
-        writer = csv.writer(file)
-        writer.writerow([nama, judul, aksi])
-        
+    except Exception as e:
+        print(f"⚠️  Gagal menyimpan histori: {e}")
+
 
 def load_histori():
     data = []
-
-    if not os.path.exists(FILE_NAME):
-        return data
-
-    with open(FILE_NAME, mode='r', newline='', encoding='utf-8') as file:
-        reader = csv.DictReader(file)
-
-        for row in reader:
-            data.append({
-                "nama": row["nama"],
-                "judul": row["judul"],
-                "status": row["status"]
-            })
+    try:
+        if not os.path.exists(HISTORY_FILE):
+            return data
+        with open(HISTORY_FILE, mode='r', newline='', encoding='utf-8') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                if row.get("nama") and row.get("judul"):
+                    data.append({
+                        "nama": row["nama"],
+                        "judul": row["judul"],
+                        "aksi": row.get("aksi", "-")
+                    })
+    except Exception as e:
+        print(f"⚠️  Gagal memuat histori: {e}")
     return data
 
-FILE_AKUN = "data/admin.csv"
 
+# ================================
+# ADMIN
+# ================================
 
 def load_admin(hashtable):
-
-    if not os.path.exists(FILE_AKUN):
-        return
-
-    with open(FILE_AKUN, mode="r", newline="") as file:
-
-        reader = csv.DictReader(file)
-
-        for row in reader:
-
-            hashtable.insert(
-                row["username"],
-                row["password"],
-                row["role"]
-            )
+    try:
+        if not os.path.exists(FILE_AKUN):
+            return
+        with open(FILE_AKUN, mode="r", newline="", encoding="utf-8") as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                hashtable.insert(row["username"], row["password"], row["role"])
+    except FileNotFoundError:
+        print("⚠️  File admin tidak ditemukan.")
+    except Exception as e:
+        print(f"⚠️  Gagal memuat data admin: {e}")
 
 
 def save_admin(hashtable):
-
-    with open(FILE_AKUN, mode="w", newline="") as file:
-
-        fieldnames = ["username", "password", "role"]
-
-        writer = csv.DictWriter(
-            file,
-            fieldnames=fieldnames
-        )
-
-        writer.writeheader()
-
-        for bucket in hashtable.table:
-
-            for user in bucket:
-
-                writer.writerow(user)
+    try:
+        os.makedirs("data", exist_ok=True)
+        with open(FILE_AKUN, mode="w", newline="", encoding="utf-8") as file:
+            fieldnames = ["username", "password", "role"]
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            writer.writeheader()
+            for bucket in hashtable.table:
+                for user in bucket:
+                    writer.writerow(user)
+    except Exception as e:
+        print(f"⚠️  Gagal menyimpan data admin: {e}")

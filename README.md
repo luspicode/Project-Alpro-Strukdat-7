@@ -34,7 +34,7 @@ fitur yang bakal kami dibuat
 7. Pinjam buku
 8. Riwayat peminjaman
 9. Simpan file otomatis
-10. Statistik buku popular
+10. Statistik buku unggulan
 
 
 fitur buat atmint:
