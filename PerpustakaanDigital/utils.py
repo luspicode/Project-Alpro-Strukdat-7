@@ -20,19 +20,19 @@ def clear():
 # ================================
 
 # List: daftar utama buku
-daftar_buku = load_buku()
+daftar_buku = load_buku() #sinkronkan yg di buku.csv ke list daftar_buku
 
 # Stack: untuk undo peminjaman
-undo_stack = Stack()
+undo_stack = Stack() #buat objek undostak
 
 # Single Linked List: buku baru yang ditambahkan di sesi ini
-buku_baru_sesi = SingleLinkedList()
+buku_baru_sesi = SingleLinkedList() #buat objek bukubarusesiini
 
 # Circular Linked List: buku unggulan (diisi otomatis dari data)
-buku_unggulan = CircularLinkedList()
+buku_unggulan = CircularLinkedList() #buat objek bukuunggulan
 
 # BST: untuk pencarian cepat
-bst = BinarySearchTree()
+bst = BinarySearchTree() #buat objek bst
 bst.build_from_list(daftar_buku)
 
 # Double Linked List: histori peminjaman (navigasi maju-mundur)
@@ -40,7 +40,7 @@ dll_histori = DoubleLinkedList()
 dll_histori.build_from_list(load_histori())
 
 # Graph: relasi kategori buku
-graph_kategori = Graph()
+graph_kategori = Graph() #buat objek graph
 # Tuple: pasangan relasi kategori default (immutable — tidak berubah)
 RELASI_KATEGORI = (
     ("Pemrograman", "Algoritma"),
@@ -50,7 +50,7 @@ RELASI_KATEGORI = (
     ("Basis Data", "Sistem Informasi"),
 )
 for k1, k2 in RELASI_KATEGORI:
-    graph_kategori.tambah_relasi(k1, k2)
+    graph_kategori.tambah_relasi(k1, k2) #masukkan relasi ke graph
 
 
 # ================================
@@ -202,7 +202,7 @@ def cari_buku():
             raise ValueError("Judul tidak boleh kosong!")
 
         # Coba BST dulu
-        hasil = bst.search(keyword)
+        hasil = bst.search(keyword) #cari di bst 
 
         # Fallback ke linear search kalau BST tidak ketemu
         if not hasil:
@@ -217,7 +217,7 @@ def cari_buku():
             print(f"Stok     : {hasil['stok']}")
 
             # Graph: tampilkan rekomendasi kategori terkait
-            kategori = hasil.get("kategori", "")
+            kategori = hasil.get("kategori", "") #ambil kategori dari variabel hasil
             if kategori:
                 rekomendasi = graph_kategori.rekomendasi(kategori)
                 if rekomendasi:
@@ -331,7 +331,7 @@ def kembalikan_buku(nama):
             raise ValueError("ID tidak boleh kosong!")
 
         # Cek histori
-        semua_histori = load_histori()
+        semua_histori = load_histori() #sinkronkan csv ke memori
         judul_target = None
 
         for buku in daftar_buku:
@@ -390,8 +390,8 @@ def undo_peminjaman():
             print("\nTidak ada data undo.")
             return
 
-        buku_undo = undo_stack.pop()
-        nama_peminjam = buku_undo.get("nama", "unknown")  # FIX 2: ambil nama user asli
+        buku_undo = undo_stack.pop() # hapus undo
+        nama_peminjam = buku_undo.get("nama", "unknown")  # ambil nama user asli
 
         for buku in daftar_buku:
             if buku["id"] == buku_undo["id"]:
@@ -438,7 +438,7 @@ def tampil_buku_unggulan():
 def tampil_rekomendasi():
     clear()
     try:
-        graph_kategori.tampil_graph()
+        graph_kategori.tampil_graph() #tampilkan daftar (kategori) relasi
 
         kategori = input("\nMasukkan kategori untuk lihat rekomendasi: ").strip()
         if not kategori:
@@ -450,7 +450,7 @@ def tampil_rekomendasi():
             print(f"\nKategori '{kategori}' tidak ditemukan.")
             return
 
-        semua_kategori_relevan = {kategori} | kategori_terkait  # SET union
+        semua_kategori_relevan = {kategori} | kategori_terkait  # gabunngkan kategori yg dimasukkan sama kategori terkait
 
         # Filter buku yang masuk ke salah satu kategori relevan
         buku_rekomendasi = [
@@ -498,7 +498,7 @@ def registrasi_admin(admin):
         if not password:
             raise ValueError("Password tidak boleh kosong!")
 
-        berhasil = admin.insert(username, password, "admin")
+        berhasil = admin.insert(username, password, "admin") #cek berhasil atau engga
         if berhasil:
             save_admin(admin)
             print("\n✅ Admin cabang berhasil didaftarkan!")
