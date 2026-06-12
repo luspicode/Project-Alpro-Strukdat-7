@@ -199,7 +199,7 @@ def cari_buku():
     try:
         keyword = input("\nMasukkan judul buku : ").strip()
         if not keyword:
-            raise ValueError("Keyword tidak boleh kosong!")
+            raise ValueError("Judul tidak boleh kosong!")
 
         # Coba BST dulu
         hasil = bst.search(keyword)
@@ -279,7 +279,7 @@ def sorting_buku():
     clear()
     try:
         bubble_sort_judul(daftar_buku)
-        save_buku(daftar_buku)  # FIX 3: simpan urutan baru ke CSV
+        save_buku(daftar_buku)  # simpan urutan baru ke CSV
         print("\n✅ Buku berhasil diurutkan berdasarkan judul!")
     except Exception as e:
         print(f"\n❌ Terjadi kesalahan: {e}")
@@ -303,7 +303,7 @@ def pinjam_buku(nama):
                     return
 
                 buku["stok"] = int(buku["stok"]) - 1
-                # FIX 2: simpan nama user ke stack agar undo bisa lacak siapa peminjamnya
+                # simpan nama user ke stack agar undo bisa lacak siapa peminjamnya
                 undo_stack.push({"id": buku["id"], "judul": buku["judul"], "nama": nama})
                 save_buku(daftar_buku)
                 simpan_histori(nama, buku["judul"], "PINJAM")
@@ -330,7 +330,7 @@ def kembalikan_buku(nama):
         if not id_buku:
             raise ValueError("ID tidak boleh kosong!")
 
-        # Cek histori: hitung berapa kali user PINJAM dan KEMBALI buku ini
+        # Cek histori
         semua_histori = load_histori()
         judul_target = None
 

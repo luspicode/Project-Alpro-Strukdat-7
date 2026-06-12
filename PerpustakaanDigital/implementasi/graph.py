@@ -6,8 +6,6 @@
 
 class Graph:
     def __init__(self):
-        # dictionary: key=kategori, value=set of kategori terkait
-        # SET dipakai di sini untuk menghindari duplikat relasi
         self.adjacency_list = {}
 
     def tambah_kategori(self, kategori):

@@ -21,7 +21,7 @@ class HashTable:
         for data in self.table[index]:
             if data["username"] == username:
                 print("\nUsername sudah digunakan.")
-                return False  # FIX: konsisten return False (bukan None)
+                return False  # konsisten return False (bukan None)
 
         user = {
             "username": username,
@@ -29,7 +29,7 @@ class HashTable:
             "role": role
         }
         self.table[index].append(user)
-        return True  # FIX: return True kalau berhasil (tanpa print di sini)
+        return True  # return True kalau berhasil (tanpa print di sini)
 
     def login(self, username, password):
         index = self.hash_function(username)
