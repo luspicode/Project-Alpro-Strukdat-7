@@ -8,13 +8,13 @@ from filehandler import load_admin
 from colorama import init, Fore, Style
 import os
 
-init(autoreset=True)
+init(autoreset=True) #bersihkan warna/format colorama setelah print
 
 def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system('cls' if os.name == 'nt' else 'clear') #clear terminal
 
-admin = HashTable()
-load_admin(admin)
+admin = HashTable() #buat objek admin
+load_admin(admin) #sinkronkan csv admin ke objek
 
 def Admin():
     clear()
@@ -72,7 +72,7 @@ def login_admin():
         username = input("Username : ").strip()
         password = input("Password : ").strip()
 
-        data = admin.login(username, password)
+        data = admin.login(username, password) #verifikasi apakah login berhasil, kembalian True/false
         if data and data["role"] == "admin":
             print("\n✅ Login berhasil!")
             return True

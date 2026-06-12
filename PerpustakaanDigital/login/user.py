@@ -3,12 +3,12 @@ from utils import tampil_buku, cari_buku, pinjam_buku, kembalikan_buku, tampil_b
 from filehandler import simpan_user, load_histori
 import os
 
-init(autoreset=True)
+init(autoreset=True) #bersihkan warna/format colorama setelah print
 
 def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system('cls' if os.name == 'nt' else 'clear') #clear terminal
 
-class User:
+class User: #buat class user
     def __init__(self):
         self.nama = None
 
@@ -75,7 +75,7 @@ Aksi     : {item['aksi']}
                     print("❌ Nama tidak boleh kosong!")
                 else:
                     break
-            simpan_user(self.nama)
+            simpan_user(self.nama) #nambah nama ke user.csv
             print(f"\n✅ Selamat datang, {self.nama}!")
             return self.nama
 
